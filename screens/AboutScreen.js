@@ -9,7 +9,7 @@ export default class AboutScreen extends React.Component {
         <View style={{flex: 1, backgroundColor: 'powderblue', alignItems: 'center', justifyContent: 'center'}}>
         <Text style={styles.pageTitle}>About</Text>
         </View>
-        <View style={{flex: 4, backgroundColor: 'skyblue'}} >
+        <View style={{flex: 5, backgroundColor: 'skyblue'}} >
         <ScrollView>
           <Text style={styles.text}>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum eget est vestibulum nisi lobortis sagittis id vitae magna. Aliquam convallis, ex vitae mattis condimentum, dolor enim dapibus urna, nec convallis tellus magna vel lorem. Nulla sit amet orci eu odio auctor commodo. Donec quis arcu euismod, ultricies ex eu, tincidunt metus. Quisque vulputate erat eget maximus gravida. Duis lectus ipsum, iaculis vel justo eget, mattis bibendum velit. Donec in tincidunt elit. Fusce tincidunt bibendum ligula, egestas vestibulum metus bibendum eu.
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
   pageTitle: {
     fontWeight: 'bold',
     fontSize: 30,
-    paddingTop: 10,
+    paddingTop: 15,
   },
   text: {
     fontSize: 20,
