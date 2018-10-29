@@ -1,9 +1,9 @@
 import React from 'react';
-import { createStackNavigator, StackActions, NavigationActions } from 'react-navigation'; // Version can be specified in package.json
+import { createBottomTabNavigator, StackActions, NavigationActions } from 'react-navigation'; // Version can be specified in package.json
 import HomeScreen from './screens/HomeScreen.js'
 import AboutScreen from './screens/AboutScreen.js'
 
-const RootStack = createStackNavigator(
+const RootStack = createBottomTabNavigator(
   {
     Home: HomeScreen,
     About: AboutScreen,
