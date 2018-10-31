@@ -3,23 +3,38 @@ import { View, Text, Button, StyleSheet, Alert } from 'react-native';
 import { createStackNavigator, StackActions, NavigationActions } from 'react-navigation'; // Version can be specified in package.json
 
 export default class HomeScreen extends React.Component {
+
+    
   render() {
     return (
-      <View style={{flex: 1}}>
-        <View style={{flex: 1, backgroundColor: '#734b74', alignItems: 'center', justifyContent: 'center'}}>
-        <Text style={styles.pageTitle}>Add Todo</Text>
-        </View>
-        <View style={{flex: 5, backgroundColor: '#dccddc'}} >
+      
 
-        <View style ={styles.btnContainer}>
+      <View style ={styles.btnContainer}>
+      
+
+
         <Button style ={styles.button}
           onPress={() => {
-            Alert.alert('Adding Todo!');
+            
+            fetch('https://vives-todoapp.herokuapp.com/projects', {
+            method: 'POST',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              title: 'hardCodedTitle',
+              description: 'Added hardcoded from addbutton',
+              user_id: 1,
+            }),
+            
+          });
+          Alert.alert('Adding Todo!');
           }}
           title="+"
-        /></View>
-        </View>
+        />
       </View>
+
     );
   }  
 }
