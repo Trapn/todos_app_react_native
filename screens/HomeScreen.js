@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text, Button, StyleSheet, Alert, Form, TextInput , InputField} from 'react-native';
-import { createStackNavigator, StackActions, NavigationActions } from 'react-navigation'; // Version can be specified in package.json
 
 export default class HomeScreen extends React.Component {
   constructor(props) {
@@ -9,8 +8,6 @@ export default class HomeScreen extends React.Component {
   }
   render() {
     return (
-      
-
       <View style={{paddingTop: 25}}>
 
       <View style={{padding: 10}}>
@@ -22,8 +19,6 @@ export default class HomeScreen extends React.Component {
 
         <Button 
           onPress={() => {
-            
-
             fetch('https://vives-todoapp.herokuapp.com/projects', {
             method: 'POST',
             headers: {

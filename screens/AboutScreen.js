@@ -1,7 +1,5 @@
 import React from 'react';
 import { View, Text, Button, StyleSheet, ScrollView } from 'react-native';
-import { createStackNavigator, StackActions, NavigationActions } from 'react-navigation'; // Version can be specified in package.json
-
 
 export default class AboutScreen extends React.Component {
   render() {
