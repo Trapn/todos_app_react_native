@@ -85,23 +85,28 @@ _retrieveData = async () => {
       value={this.state.password} 
       onChangeText={(text) => this.setState({ password: text })} />
       <View style={{margin:7}} />
-      <Button
+      <View style={{margin:7}}>
+      <Button 
             onPress={this._userLogin.bind(this)}
             title="Login"
           />
+        </View>
+        <View style={{margin:7}}>
             <Button
             onPress={this._userLogout.bind(this)}
             title="Log out"
           />
+          </View>
+          <View style={{margin:7}}>
             <Button
             onPress={this._retrieveData.bind(this)}
             title="Get Token"
           />
+          </View>
       </ScrollView>
 
     );
   } 
-
 }
  
 var styles = StyleSheet.create({
