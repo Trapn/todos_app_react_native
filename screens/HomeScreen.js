@@ -62,10 +62,6 @@ _retrieveData = async () => {
       .then((response) => response.json())
       .then((responseData) => {
         this._onValueChange(STORAGE_KEY, responseData.auth_token)
-        console.log(responseData)
-        console.log(this.state.email)
-        console.log(responseData.auth_token)
-        
       })
       .done();
     }; 
