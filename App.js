@@ -3,15 +3,18 @@ import { createBottomTabNavigator} from 'react-navigation'; // Version can be sp
 
 import HomeScreen from './screens/HomeScreen.js'
 import AboutScreen from './screens/AboutScreen.js'
+import ProjectScreen from './screens/ProjectScreen.js'
+
 
 
 const RootStack = createBottomTabNavigator(
   {
-    Home: HomeScreen,
+    Account: HomeScreen,
+    Projects: ProjectScreen,
     About: AboutScreen,
   },
   {
-    initialRouteName: 'Home',
+    initialRouteName: 'Account',
   }
 );
 

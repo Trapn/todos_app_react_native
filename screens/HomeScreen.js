@@ -85,8 +85,12 @@ _retrieveData = async () => {
             title="Login"
           />
             <Button
+            onPress={this._userLogout.bind(this)}
+            title="Log out"
+          />
+            <Button
             onPress={this._retrieveData.bind(this)}
-            title="GetToken"
+            title="Get Token"
           />
       </ScrollView>
 
