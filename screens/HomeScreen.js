@@ -73,15 +73,20 @@ _retrieveData = async () => {
 
   render() {
     return (
-      <ScrollView style={{padding: 20}}>
+      <ScrollView style={{padding: 20, paddingTop: 30}}>
       <Text 
-          style={{fontSize: 27}}>
+          style={{fontSize: 35, paddingBottom: 20}}>
           Login
       </Text>
-      <TextInput placeholder='Username' 
+      <TextInput 
+      style={{fontSize: 20, paddingBottom: 3}}
+      placeholder='Username' 
       value={this.state.email} 
       onChangeText={(text) => this.setState({ email: text })} />
-      <TextInput placeholder='Password' 
+      <TextInput 
+      secureTextEntry={true}
+      style={{fontSize: 20, paddingBottom: 3}}
+      placeholder='Password' 
       value={this.state.password} 
       onChangeText={(text) => this.setState({ password: text })} />
       <View style={{margin:7}} />
