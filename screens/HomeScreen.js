@@ -62,6 +62,11 @@ _retrieveData = async () => {
       .then((response) => response.json())
       .then((responseData) => {
         this._onValueChange(STORAGE_KEY, responseData.auth_token)
+      if (responseData.auth_token){
+        Alert.alert("Logged in")
+      } else {
+        Alert.alert("Failed to log in")
+      }
       })
       .done();
     }; 
