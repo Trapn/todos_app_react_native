@@ -1,22 +1,20 @@
 import React from 'react';
 import { FlatList, ActivityIndicator, Text, View, AsyncStorage  } from 'react-native';
 
-
+import LoginForm from '../components/LoginForm'
 
 export default class ProjectScreen extends React.Component {
 
   constructor(props){
     super(props);
-    this.state ={ isLoading: true,
-                  dataSource: {'title': 'noProject',
-                               'description': 'noDescription'}}
+    this.state ={ isLoading: true}
   }
   async _getProtectedProjects() {
     var TOKEN = await AsyncStorage.getItem('auth_token');
     fetch("http://vives-todoapp.herokuapp.com/projects.json", {
       method: "GET",
       headers: {
-        'Authorization': TOKEN
+        'Authorization': LoginForm._retrieveData()
       }
     })
     .then((response) => response.json())
