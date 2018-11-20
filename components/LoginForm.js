@@ -31,13 +31,12 @@ _retrieveData = async () => {
   try {
     const value = await AsyncStorage.getItem(STORAGE_KEY);
     if (value !== null) {
-      // We have data!!
       console.log(value);
     }
   } catch (error) {
-    // Error retrieving data
   }
 };
+
 
   async _userLogout() {
     try {

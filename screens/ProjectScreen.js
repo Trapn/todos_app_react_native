@@ -1,70 +1,55 @@
 import React from 'react';
-import { View, Alert, Text, Button, StyleSheet, ScrollView, AsyncStorage } from 'react-native';
+import { FlatList, ActivityIndicator, Text, View, AsyncStorage  } from 'react-native';
 
-export default class AboutScreen extends React.Component {
-    async _getProtectedProjects() {
-        var TOKEN = await AsyncStorage.getItem('auth_token');
-        fetch("http://vives-todoapp.herokuapp.com/projects.json", {
-          method: "GET",
-          headers: {
-            'Authorization': TOKEN
-          }
-        })
-        .then((response) => response.text())
-        .then((response) => { 
-          Alert.alert(
-            "Projects:", response)
-        })
-        .done();
-    };
-  render() {
-    return (
-        <View style={styles.pageView}>
-        <ScrollView>
-          <Text style={styles.text}>
-          
-          </Text>
-          <Button
-            onPress={this._getProtectedProjects.bind(this)}
-            title="Get Projects"
-          />
-        </ScrollView>
+
+
+export default class ProjectScreen extends React.Component {
+
+  constructor(props){
+    super(props);
+    this.state ={ isLoading: true,
+                  dataSource: {'title': 'noProject',
+                               'description': 'noDescription'}}
+  }
+  async _getProtectedProjects() {
+    var TOKEN = await AsyncStorage.getItem('auth_token');
+    fetch("http://vives-todoapp.herokuapp.com/projects.json", {
+      method: "GET",
+      headers: {
+        'Authorization': TOKEN
+      }
+    })
+    .then((response) => response.json())
+    .then((responseJson) => { 
+      this.setState({
+        isLoading: false,
+        dataSource: responseJson,
+      }, function(){
+
+      });
+    })
+    .done();
+  };
+  componentDidMount(){
+    this._getProtectedProjects()
+  }
+  render(){
+
+    if(this.state.isLoading){
+      return(
+        <View style={{flex: 1, padding: 20}}>
+          <ActivityIndicator/>
         </View>
-
+      )
+    }
+    return(
+      <View style={{flex: 1, paddingTop:20}}>
+        <FlatList
+          data={this.state.dataSource}
+          renderItem={({item}) => <Text>{item.title}, {item.description}</Text>}
+          keyExtractor={({id}, index) => id}
+        />
+      </View>
     );
-  }  
+  }
 }
-
-const styles = StyleSheet.create({
-  pageTitle: {
-    fontWeight: 'bold',
-    fontSize: 30,
-    paddingTop: 15,
-    color: '#dccddc',
-  },
-  text: {
-    fontSize: 20,
-  },
-  pageView: {
-    paddingTop: 20,
-  },
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
