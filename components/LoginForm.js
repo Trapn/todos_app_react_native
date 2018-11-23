@@ -74,7 +74,7 @@ _retrieveData = async () => {
     return (
       <View>
       <Text 
-          style={{fontSize: 35, paddingBottom: 20}}>
+         >
           Login
       </Text>
       <TextInput 

@@ -1,7 +1,5 @@
 import React from 'react';
-import { FlatList, ActivityIndicator, Text, View, AsyncStorage  } from 'react-native';
-
-import LoginForm from '../components/LoginForm'
+import { FlatList, ActivityIndicator, Text, View, AsyncStorage, Button, Alert  } from 'react-native';
 
 export default class ProjectScreen extends React.Component {
 
@@ -9,12 +7,26 @@ export default class ProjectScreen extends React.Component {
     super(props);
     this.state ={ isLoading: true}
   }
+  async _deleteProject(project_id){
+    var TOKEN = await AsyncStorage.getItem('auth_token');
+    fetch('http://vives-todoapp.herokuapp.com/projects/'+ project_id, {
+  method: 'DELETE',
+  headers: {
+    'Authorization': TOKEN
+  },
+  body: JSON.stringify({
+
+  }),
+})
+.done();
+}
+
   async _getProtectedProjects() {
     var TOKEN = await AsyncStorage.getItem('auth_token');
     fetch("http://vives-todoapp.herokuapp.com/projects.json", {
       method: "GET",
       headers: {
-        'Authorization': LoginForm._retrieveData()
+        'Authorization': TOKEN
       }
     })
     .then((response) => response.json())
@@ -41,13 +53,24 @@ export default class ProjectScreen extends React.Component {
       )
     }
     return(
-      <View style={{flex: 1, paddingTop:20}}>
+
+      <View>
         <FlatList
           data={this.state.dataSource}
-          renderItem={({item}) => <Text>{item.title}, {item.description}</Text>}
-          keyExtractor={({id}, index) => id}
+          renderItem={({item}) => 
+          <View>
+           <Text>{item.title}, {item.description}</Text>
+           <Button title="delete" 
+           onPress={() => {
+            this._deleteProject(item.id)
+            Alert.alert('Deleted project!');
+          }}
+          />
+          </View>
+        }
+          keyExtractor={({id}, index) => id.toString()}
         />
-      </View>
+        </View>
     );
   }
 }
