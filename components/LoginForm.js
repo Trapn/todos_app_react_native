@@ -5,7 +5,6 @@ import {
   StyleSheet,
   Text,
   View,
-  ScrollView,
   TextInput,
   Button,
   Alert,
@@ -26,18 +25,6 @@ export default class LoginForm extends React.Component{
       console.log('AsyncStorage error: ' + error.message);
     }
 };
-
-_retrieveData = async () => {
-  try {
-    const value = await AsyncStorage.getItem(STORAGE_KEY);
-    if (value !== null) {
-      console.log(value);
-    }
-  } catch (error) {
-  }
-};
-
-
   async _userLogout() {
     try {
       await AsyncStorage.removeItem(STORAGE_KEY);
@@ -46,7 +33,7 @@ _retrieveData = async () => {
       console.log('AsyncStorage error: ' + error.message);
     }
   };
-  _userLogin() { 
+   _userLogin() { 
       fetch("http://vives-todoapp.herokuapp.com/authenticate", {
         method: "POST", 
         headers: {
@@ -68,13 +55,12 @@ _retrieveData = async () => {
       }
       })
       .done();
-    }; 
+    };  
 
   render() {
     return (
       <View>
-      <Text 
-         >
+      <Text>
           Login
       </Text>
       <TextInput 

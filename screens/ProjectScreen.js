@@ -1,12 +1,16 @@
 import React from 'react';
-import { FlatList, ActivityIndicator, Text, View, AsyncStorage, Button, Alert  } from 'react-native';
+import { FlatList, TextInput, ScrollView, StyleSheet ,ActivityIndicator, Text, View, AsyncStorage, Button, Alert  } from 'react-native';
+import LoginForm from '../components/LoginForm'
 
 export default class ProjectScreen extends React.Component {
 
   constructor(props){
     super(props);
-    this.state ={ isLoading: true}
+    this.state ={ isLoading: true,
+                  title: '',
+                  description: ''}
   }
+
   async _deleteProject(project_id){
     var TOKEN = await AsyncStorage.getItem('auth_token');
     fetch('http://vives-todoapp.herokuapp.com/projects/'+ project_id, {
@@ -15,8 +19,26 @@ export default class ProjectScreen extends React.Component {
     'Authorization': TOKEN
   },
   body: JSON.stringify({
-
   }),
+})
+.done();
+}
+
+async _addProject(){
+  var TOKEN = await AsyncStorage.getItem('auth_token');
+  fetch('http://vives-todoapp.herokuapp.com/projects/', {
+method: 'POST',
+headers: {
+  Accept: 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': TOKEN
+},
+body: JSON.stringify({
+  title: this.state.title,
+  description: this.state.description,
+  user_id: 1,
+  
+}),
 })
 .done();
 }
@@ -40,8 +62,14 @@ export default class ProjectScreen extends React.Component {
     })
     .done();
   };
+
   componentDidMount(){
     this._getProtectedProjects()
+  }
+  componentDidUpdate(){
+      
+    this._getProtectedProjects()
+      
   }
   render(){
 
@@ -53,8 +81,8 @@ export default class ProjectScreen extends React.Component {
       )
     }
     return(
-
-      <View>
+      <View style={{flex: 1}}>
+        <ScrollView>
         <FlatList
           data={this.state.dataSource}
           renderItem={({item}) => 
@@ -64,13 +92,44 @@ export default class ProjectScreen extends React.Component {
            onPress={() => {
             this._deleteProject(item.id)
             Alert.alert('Deleted project!');
+            this.componentDidUpdate()
           }}
           />
           </View>
         }
           keyExtractor={({id}, index) => id.toString()}
         />
-        </View>
+        </ScrollView>
+ 
+               <View >
+               <TextInput 
+               style={{fontSize: 20, paddingBottom: 3}}
+               placeholder='Projecttitle' 
+               value={this.state.title} 
+               onChangeText={(text) => this.setState({ title: text })} />
+               <TextInput 
+               style={{fontSize: 20, paddingBottom: 3}}
+               placeholder='Description' 
+               value={this.state.description} 
+               onChangeText={(text) => this.setState({ description: text })} />
+                  <Button title="add project" 
+                    onPress={() => {
+                     this._addProject();
+                     Alert.alert('Added project!');
+                     this.componentDidUpdate()
+                   }}
+                   />
+                </View>
+          </View>
     );
   }
 }
+
+var styles = StyleSheet.create({
+  bottomView:{
+
+    position: 'absolute',
+    bottom: 0
+  },
+});
+
